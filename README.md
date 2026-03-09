@@ -7,23 +7,24 @@ Independent Reference Data Set (SIRDS) available from:
 https://www.metoffice.gov.uk/hadobs/hadiod/sirds.html and a selection of L3C or
 L4 SST files.
 
-gen_*_mmd.py
+gen_sst_mmd.py
 ------------
 
-The `gen_sst_mmd.py` and `gen_l4_mmd.py` programs are used to match the SIRDS
-data to Level 3 and Level 4 satellite data products. Usually these will be
-submitted as batch jobs to the cluster using the `submit_gen*` scripts, but they
-may also be run manually.
+The `gen_sst_mmd.py` script is used to match the SIRDS data to Level 3 and Level 4
+satellite data products. Usually this will be submitted as batch jobs to the cluster
+using the `submit_gen*` scripts, but it may also be run manually.
 ```
-usage: gen_sst_mmd.py [-h] [-d DIR] sirds satpath
+usage: gen_sst_mmd.py [-h] [-d DIR] [--keepall] [--no-qc1] sirds satpath
 
 positional arguments:
   sirds       SIRDS file
-  satpath     Path to L3 or L4 data
+  satpath     Path to L3 data
 
-optional arguments:
+options:
   -h, --help  show this help message and exit
   -d DIR      Output directory
+  --keepall   Keep all observations instead of daily average (l4 only)
+  --no-qc1    Disable QC1 filtering (basic QC)
 ```
 
 ### Example

@@ -1,0 +1,39 @@
+files:
+  - mmd/l4/L4/OSTIA_drifter_cmems_*nc
+
+title: "{region}{product} - {sirds_name}"
+
+dir: plots
+
+min_filequal: 3
+umax: 1.25
+dmax: 0.5
+
+prefix: "{region}-{product}-{sirds_type}"
+
+regions:
+  global:
+    name: ""
+
+#  ocean:
+#    name: ""
+#    min_land: 10
+
+  2024:
+    name: "[2024] "
+    time: [2024-01-01, 2025-01-01]
+
+  2024Q4:
+    name: "[2024Q4] "
+    time: [2024-10-01, 2025-01-01]
+
+# Features is used to draw vertical lines on time series plots (e.g. Pinatubo eruption)
+features:
+  - 1982-04-01
+  - 1991-06-15
+
+# Features2 is used to draw point on hovmoller plots (e.g. Pinatubo eruption)
+features2:
+  - [1982-04-01,  17.36]
+  - [1991-06-15,  15.14]
+  - [1991-09-01, -45.90]
