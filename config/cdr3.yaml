@@ -19,13 +19,25 @@ regions:
 #    name: ""
 #    min_land: 10
 
-  2024:
-    name: "[2024] "
-    time: [2024-01-01, 2025-01-01]
+  2025:
+    name: "[2025] "
+    time: [2025-01-01, 2026-01-01]
 
-  2024Q4:
-    name: "[2024Q4] "
-    time: [2024-10-01, 2025-01-01]
+  2025Q1:
+    name: "[2025Q1] "
+    time: [2025-01-01, 2026-04-01]
+
+  2025Q2:
+    name: "[2025Q2] "
+    time: [2025-04-01, 2026-07-01]
+
+  2025Q3:
+    name: "[2025Q3] "
+    time: [2025-07-01, 2026-10-01]
+
+  2025Q4:
+    name: "[2025Q4] "
+    time: [2025-10-01, 2026-01-01]
 
 # Features is used to draw vertical lines on time series plots (e.g. Pinatubo eruption)
 features:

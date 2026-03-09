@@ -2,8 +2,8 @@
 
 base=/gws/nopw/j04/cds_c3s_sst/public/data/ICDR_v3
 
-startdate=202401   # Read 2024 onwards from c3s public directory
-enddate=202601
+startdate=202501   # Read 2024 onwards from c3s public directory
+enddate=202701
 
 outpath=/gws/ssde/j25b/esacci_sst/validation/cdr3-pqar
 
