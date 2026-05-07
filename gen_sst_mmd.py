@@ -213,11 +213,11 @@ def calc_ll_inds(sirds, sdata):
     sirds['ilon'] = (n * (sirds.ins_longitude + 180)).astype(int) % nlon
 
 
-def find_matches_l3(sirds, sdata):
+def find_matches_l3(sirds, sdata, dtime=2):
     """
     Find all the matches between given insitu and L3 SST data
     """
-    tlimit = np.timedelta64(2, 'h')
+    tlimit = np.timedelta64(dtime, 'h')
     t6hour = np.timedelta64(6, 'h')  # Extra margin for DV adjustment
     t0 = pd.to_datetime(sdata.start_time).to_datetime64() - tlimit - t6hour
     t1 = pd.to_datetime(sdata.stop_time).to_datetime64() + tlimit + t6hour
@@ -356,6 +356,7 @@ if __name__ == "__main__":
                         help='Keep all observations instead of daily average (l4 only)')
     parser.add_argument('--no-qc1', dest='filter_qc1', action='store_false',
                         help='Disable QC1 filtering (basic QC)')
+    parser.add_argument('--dtime', type=int, default=2, help='Maximum time separation')
     args = parser.parse_args()
     logging.basicConfig(level=logging.DEBUG,
                         datefmt='%y-%m-%d %H:%M',
@@ -389,7 +390,7 @@ if __name__ == "__main__":
                 calc_ll_inds(idata, sdata)
                 logging.debug('Matching')
                 if sdata.processing_level.startswith('L3'):
-                    m = find_matches_l3(idata, sdata)
+                    m = find_matches_l3(idata, sdata, dtime=args.dtime)
                 else:
                     m = find_matches_l4(idata, sdata, dailyavg=args.dailyavg)
             except Exception as e:

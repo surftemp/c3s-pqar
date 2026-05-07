@@ -597,7 +597,7 @@ def pvir_plot_spatial(data, varname, title='', robust=False,
         ax.set_xlim(*yrange)
         ax.set_ylim(-90, 90)
         ax.xaxis.set_major_locator(mpl.ticker.MaxNLocator(
-                    nbins='auto', steps=[1, 2, 5, 10], integer=True))
+                    nbins='auto', steps=[1, 2, 5], integer=True))
         ax.yaxis.set_major_locator(mpl.ticker.MultipleLocator(30))
         ax.set_title(t)
         ax.grid()
@@ -648,7 +648,7 @@ def pvir_plot_spatial_l4(data, varname, title='', robust=False,
     ax.imshow(hovn, vmin=-1, vmax=1, cmap='coolwarm', interpolation=iminterpol,
               extent=extent, origin='lower', aspect='auto')
     ax.xaxis.set_major_locator(mpl.ticker.MaxNLocator(
-                nbins='auto', steps=[1, 2, 5, 10], integer=True))
+                nbins=10, steps=[5], integer=True))
     ax.yaxis.set_major_locator(mpl.ticker.MultipleLocator(30))
     ax.grid()
     ax.set_xlabel('Year')
@@ -1095,7 +1095,11 @@ if __name__ == '__main__':
         ds['day'].attrs['long_name'] = 'Day flag'
         ds['ngt'] = np.invert(ds.day)
 
-    msk = ds.ins_qc1 == 0
+    try:
+        msk = ds.ins_qc == 0
+    except AttributeError:
+        print('Dataset does not have a "ins_qc" variable, trying fallback to "ins_qc1"')
+        msk = ds.ins_qc1 == 0
     if 'min_filequal' in conf:
         if 'file_quality_level' in ds:
             msk = msk & (ds.file_quality_level >= conf['min_filequal'])
@@ -1268,12 +1272,12 @@ if __name__ == '__main__':
         print("Spatial plots")
         if ret == 'L4':
             spatial = pvir_plot_spatial_l4(qc5, 'tdiff', title=ptitle, wide=wide, robust=True)
-            add_features(spatial['hov'].get_axes()[0], conf['features2'], offsets=[-89, -82, -75])
         else:
             spatial = pvir_plot_spatial(qc5, 'tdiff', title=ptitle, wide=wide, robust=True)
         for name, fig in spatial.items():
             try:
-                add_features(fig.get_axes()[0], conf['features2'], offsets=[-89, -82, -75])
+                if 'hov' in name:
+                    add_features(fig.get_axes()[0], conf['features2'], offsets=[-89, -82, -75])
 
                 fig.savefig(f'{prefix}-{name}.png')
                 fig.savefig(f'{prefix}-{name}.svg')
@@ -1290,11 +1294,12 @@ if __name__ == '__main__':
 
         if ret == 'L4':
             spatial = pvir_plot_spatial_l4(qc5, 'tdiff', title=ptitle, wide=wide, robust=False)
-            add_features(spatial['hov'].get_axes()[0], conf['features2'], offsets=[-89, -82, -75])
         else:
             spatial = pvir_plot_spatial(qc5, 'tdiff', title=ptitle, wide=wide, robust=False)
         for name, fig in spatial.items():
             try:
+                if 'hov' in name:
+                    add_features(fig.get_axes()[0], conf['features2'], offsets=[-89, -82, -75])
                 fig.savefig(f'{prefix}-{name}-nr.png')
                 fig.savefig(f'{prefix}-{name}-nr.svg')
                 plt.close(fig)
