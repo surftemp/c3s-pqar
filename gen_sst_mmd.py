@@ -356,7 +356,7 @@ if __name__ == "__main__":
                         help='Keep all observations instead of daily average (l4 only)')
     parser.add_argument('--no-qc1', dest='filter_qc1', action='store_false',
                         help='Disable QC1 filtering (basic QC)')
-    parser.add_argument('--dtime', type=int, default=2, help='Maximum time separation')
+    parser.add_argument('--dtime', type=int, default=6, help='Maximum time separation')
     args = parser.parse_args()
     logging.basicConfig(level=logging.DEBUG,
                         datefmt='%y-%m-%d %H:%M',

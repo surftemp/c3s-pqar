@@ -95,7 +95,7 @@ if __name__ == '__main__':
     parser.add_argument("--levels", nargs='+', default=['l3c', 'l4'],
                         help="Specify product levels to allow in directory scan")
     parser.add_argument("-s", "--sirds", help="Location of SIRDS data", metavar='PATH',
-                        default="/gws/nopw/j04/cds_c3s_sst/input/refdata/raw/sirds")
+                        default="/gws/ssde/j25a/cds_c3s_sst/input/refdata/raw/sirds")
     parser.add_argument("-i", "--insitu", default="drifter_cmems",
                         help="Type of insitu observation to use (default drifter_cmems)")
     parser.add_argument("-n", "--dry-run", action='store_true',
